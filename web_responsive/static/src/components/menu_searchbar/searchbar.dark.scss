@@ -1,0 +1,9 @@
+:root {
+    .o_grid_apps_menu[data-theme="community"] {
+        .search-container .search-input .form-control {
+            &::-webkit-search-cancel-button {
+                filter: invert(1);
+            }
+        }
+    }
+}

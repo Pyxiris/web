@@ -24,11 +24,23 @@
         "views/res_users_views.xml",
     ],
     "assets": {
-        "web._assets_primary_variables": {
+        "web_responsive._assets_primary_variables": {
             "/web_responsive/static/src/legacy/scss/form_variable.scss",
+            # Yes, we need secondary variables here because for some reason that is
+            # where $o-webclient-background-color is defined. I don't make the rules smh
+            ("include", "web._assets_secondary_variables"),
             "/web_responsive/static/src/legacy/scss/primary_variable.scss",
         },
+        "web_responsive._assets_primary_variables_dark": {
+            ("include", "web_responsive.assets_primary_variables"),
+            (
+                "before",
+                "/web_responsive/static/src/legacy/scss/primary_variable.scss",
+                "/web_responsive/static/src/legacy/scss/primary_variables.dark.scss",
+            ),
+        },
         "web.assets_backend": [
+            ("include", "web_responsive._assets_primary_variables"),
             "web_responsive/static/src/lib/fuse/fuse.basic.min.js",
             "/web_responsive/static/src/legacy/scss/web_responsive.scss",
             "/web_responsive/static/src/legacy/scss/big_boxes.scss",
@@ -49,6 +61,11 @@
             "/web_responsive/static/src/components/control_panel/*",
             "/web_responsive/static/src/components/command_palette/*",
             "/web_responsive/static/src/views/form/*",
+            ("remove", "/web_responsive/static/src/**/*.dark.scss"),
+        ],
+        "web.assets_web_dark": [
+            ("include", "web_responsive._assets_primary_variables_dark"),
+            "/web_responsive/static/src/components/**/*.dark.scss",
         ],
         "web.assets_clickbot": [
             "/web_responsive/static/src/clickbot/clickbot.esm.js",

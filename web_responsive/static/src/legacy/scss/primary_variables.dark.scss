@@ -1,0 +1,30 @@
+/* Copyright 2025 Liam Noonan
+ * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
+
+// Menu
+$app-menu-text-color: $o-gray-900 !default;
+$app-menu-background-color: $o-webclient-background-color !default;
+$app-menu-box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 2px 2px rgba(0, 0, 0, 0.04),
+    0 4px 4px rgba(0, 0, 0, 0.04),
+    0 8px 8px rgba(0, 0, 0, 0.04),
+    0 16px 16px rgba(0, 0, 0, 0.04) !default;
+$app-menu-box-shadow-highlight:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 2px 2px rgba(0, 0, 0, 0.06),
+    0 4px 4px rgba(0, 0, 0, 0.06),
+    0 8px 8px rgba(0, 0, 0, 0.06),
+    0 16px 16px rgba(0, 0, 0, 0.06) !default;
+
+// Menu Item
+$app-menu-item-background-color: $o-gray-300 !default;
+$app-menu-item-box-shadow: 0 6px 12px -8px rgba(black, 0.6) !default;
+$app-menu-item-active-text-shadow: 0 0 0px rgba(black, 0) !default;
+
+$app-menu-searchbar-background-color: $o-gray-300 !default;
+$app-menu-searchbar-item-highlight: mix(
+    $o-action,
+    $app-menu-searchbar-background-color,
+    10%
+) !default;

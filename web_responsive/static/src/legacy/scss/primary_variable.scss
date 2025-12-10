@@ -1,9 +1,9 @@
 /* Copyright 2023 Taras Shabaranskyi
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
+// Common
 $app-menu-text-color: #374151 !default;
 $app-menu-background-color: rgb(233, 230, 249) !default;
-$app-menu-item-highlight: rgb(243, 240, 259) !default;
 $app-menu-box-shadow:
     inset 0 0 0 1px rgba(0, 0, 0, 0.16),
     0 2px 2px rgba(0, 0, 0, 0.016),
@@ -16,3 +16,12 @@ $app-menu-box-shadow-highlight:
     0 4px 4px rgba(0, 0, 0, 0.026),
     0 8px 8px rgba(0, 0, 0, 0.026),
     0 16px 16px rgba(0, 0, 0, 0.026) !default;
+
+// Menu Item
+$app-menu-item-background-color: white !default;
+$app-menu-item-box-shadow: 0 6px 12px -8px transparentize($app-menu-text-color, 0.6) !default;
+$app-menu-item-active-text-shadow: 0 0 2px rgba(250, 250, 250, 0.6) !default;
+
+// Searchbar
+$app-menu-searchbar-background-color: white !default;
+$app-menu-searchbar-item-highlight: rgb(243, 240, 259) !default;

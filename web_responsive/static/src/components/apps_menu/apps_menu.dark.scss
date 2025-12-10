@@ -1,0 +1,21 @@
+:root {
+    .o_grid_apps_menu[data-theme="milk"] {
+        --app-menu-background: url("../../img/home-menu-bg-overlay.svg"),
+            linear-gradient(
+                to bottom,
+                #{$app-menu-background-color},
+                #{desaturate(lighten($app-menu-background-color, 0%), 0)}
+            );
+    }
+}
+
+// Change color of navbar to match app menu container background when active
+.o_main_navbar:has(.app-menu-container) {
+    background: $app-menu-background-color;
+}
+
+:root:has(.o_grid_apps_menu[data-theme="community"]) {
+    .o_main_navbar:has(.app-menu-container) {
+        background: $o-brand-primary;
+    }
+}

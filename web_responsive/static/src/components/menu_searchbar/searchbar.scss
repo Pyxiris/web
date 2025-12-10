@@ -10,13 +10,13 @@
         display: flex;
         justify-items: center;
         gap: 0.75rem;
-        box-shadow: $app-menu-box-shadow;
+        box-shadow: var(--app-menu-box-shadow);
         border-radius: 4px;
         padding: 0.5rem 0.75rem;
-        background-color: white;
+        background-color: var(--app-menu-searchbar-background-color);
 
         .search-icon {
-            color: $app-menu-text-color;
+            color: var(--app-menu-searchbar-color);
             font-size: 1.5rem;
             padding-top: 1px;
         }
@@ -25,13 +25,13 @@
             height: 1.75rem;
             background: none;
             border: none;
-            color: $app-menu-text-color;
+            color: var(--app-menu-searchbar-color);
             display: block;
             padding: 0;
             box-shadow: none;
 
             &::placeholder {
-                color: $app-menu-text-color;
+                color: var(--app-menu-searchbar-color);
                 opacity: 0.5;
             }
         }

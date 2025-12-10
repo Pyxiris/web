@@ -7,13 +7,31 @@
     .o_grid_apps_menu[data-theme="milk"] {
         --app-menu-text-color: #{$app-menu-text-color};
         --app-menu-text-shadow: 1px 1px 1px #{rgba($white, 0.4)};
-        --app-menu-hover-background: #{rgba(white, 0.4)};
+        --app-menu-box-shadow: #{$app-menu-box-shadow};
+        --app-menu-box-shadow-highlight: #{$app-menu-box-shadow-highlight};
+        --app-menu-item-background-color: #{$app-menu-item-background-color};
+        --app-menu-item-hover-background: #{rgba($app-menu-item-background-color, 0.4)};
+        --app-menu-item-box-shadow: #{$app-menu-item-box-shadow};
+        --app-menu-item-active-text-shadow: #{$app-menu-item-active-text-shadow};
+        --app-menu-active-icon-color: #{$app-menu-text-color};
     }
 
+    // Set community theme with css vars only, so it is not bothered by dark mode
+    // SCSS variable changes.
     .o_grid_apps_menu[data-theme="community"] {
         --app-menu-text-color: white;
-        --app-menu-text-shadow: 1px 1px 1px #{rgba(black, 0.4)};
-        --app-menu-hover-background: #{rgba(white, 0.2)};
+        --app-menu-text-shadow: 1px 1px 1px #{rgba(0, 0, 0, 0.4)};
+        --app-menu-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16),
+            0 2px 2px rgba(0, 0, 0, 0.016), 0 4px 4px rgba(0, 0, 0, 0.016),
+            0 8px 8px rgba(0, 0, 0, 0.016), 0 16px 16px rgba(0, 0, 0, 0.016);
+        --app-menu-box-shadow-highlight: inset 0 0 0 1px rgba(0, 0, 0, 0.26),
+            0 2px 2px rgba(0, 0, 0, 0.026), 0 4px 4px rgba(0, 0, 0, 0.026),
+            0 8px 8px rgba(0, 0, 0, 0.026), 0 16px 16px rgba(0, 0, 0, 0.026);
+        --app-menu-item-background-color: white;
+        --app-menu-item-hover-background: #{rgba(255, 255, 255, 0.2)};
+        --app-menu-item-box-shadow: 0 6px 12px -8px rgba(55, 65, 81, 0.4);
+        --app-menu-item-active-text-shadow: 0 0 2px rgba(250, 250, 250, 0.6);
+        --app-menu-active-icon-color: #374151;
     }
 }
 
@@ -54,23 +72,23 @@
         width: 64px;
         aspect-ratio: 1;
         padding: 10px;
-        background-color: white;
-        box-shadow: $app-menu-box-shadow;
+        background-color: var(--app-menu-item-background-color);
+        box-shadow: var(--app-menu-box-shadow);
     }
 
     &__active {
         position: absolute;
         bottom: 2px;
         right: 2px;
-        text-shadow: 0 0 2px rgba(250, 250, 250, 0.6);
-        color: $app-menu-text-color;
+        text-shadow: var(--app-menu-item-active-text-shadow);
+        color: var(--app-menu-active-icon-color);
     }
 
     &:focus,
     &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 6px 12px -8px transparentize($app-menu-text-color, 0.6);
-        background-color: var(--app-menu-hover-background) !important;
+        box-shadow: var(--app-menu-item-box-shadow);
+        background-color: var(--app-menu-item-hover-background) !important;
         backdrop-filter: blur(2px);
     }
 }

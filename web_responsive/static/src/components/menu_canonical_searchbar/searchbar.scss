@@ -6,12 +6,18 @@
 :root {
     .o_grid_apps_menu[data-theme="milk"] {
         --apps-menu-scrollbar-background: #{$o-brand-odoo};
-        --apps-menu-empty-search-color: $app-menu-text-color;
+        --apps-menu-empty-search-color: var(--app-menu-text-color);
+        --app-menu-searchbar-color: var(--app-menu-text-color);
+        --app-menu-searchbar-background-color: #{$app-menu-searchbar-background-color};
+        --app-menu-searchbar-item-highlight: #{$app-menu-searchbar-item-highlight};
     }
 
     .o_grid_apps_menu[data-theme="community"] {
         --apps-menu-scrollbar-background: white;
         --apps-menu-empty-search-color: white;
+        --app-menu-searchbar-color: #374151;
+        --app-menu-searchbar-background-color: white;
+        --app-menu-searchbar-item-highlight: rgb(243, 240, 259);
     }
 }
 
@@ -64,8 +70,8 @@
         background-size: contain;
         white-space: normal;
         font-weight: 100;
-        background-color: white;
-        box-shadow: $app-menu-box-shadow;
+        background-color: var(--app-menu-searchbar-background-color);
+        box-shadow: var(--app-menu-box-shadow);
         margin: 0 4px;
         border-radius: 4px;
 
@@ -78,7 +84,7 @@
         }
 
         &__name {
-            color: $app-menu-text-color;
+            color: var(--app-menu-searchbar-color);
             text-shadow: 0 0 $app-menu-text-color;
         }
 
@@ -92,8 +98,8 @@
 
         &.highlight,
         &:hover {
-            background-color: $app-menu-item-highlight;
-            box-shadow: $app-menu-box-shadow-highlight;
+            background-color: var(--app-menu-searchbar-item-highlight);
+            box-shadow: var(--app-menu-box-shadow-highlight);
             font-weight: 300;
         }
 
