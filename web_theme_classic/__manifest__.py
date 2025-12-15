@@ -14,16 +14,36 @@
     "depends": [
         "web",
     ],
+    "data": [
+        "views/webclient_templates.xml",
+        "views/res_users_views.xml",
+    ],
     "assets": {
         "web.assets_backend": [
-            "/web_theme_classic/static/src/scss/web_theme_classic.scss",
+            "web_theme_classic/static/src/js/switch_item.esm.js",
         ],
-        "web.assets_web_dark": [
+        "web_theme_classic.assets_web_classic": [
+            ("include", "web.assets_web"),
+            (
+                "after",
+                "web/static/src/scss/primary_variables.scss",
+                "web_theme_classic/static/src/scss/primary_variables.scss",
+            ),
+            "web_theme_classic/static/src/scss/web_theme_classic.scss",
+        ],
+        "web_theme_classic.assets_web_dark_classic": [
+            ("include", "web.assets_web_dark"),
+            (
+                "after",
+                "web/static/src/scss/primary_variables.scss",
+                "web_theme_classic/static/src/scss/primary_variables.scss",
+            ),
             (
                 "before",
-                "/web_theme_classic/static/src/scss/web_theme_classic.scss",
-                "/web_theme_classic/static/src/scss/web_theme_classic.dark.scss",
+                "web_theme_classic/static/src/scss/primary_variables.scss",
+                "web_theme_classic/static/src/scss/primary_variables.dark.scss",
             ),
+            "web_theme_classic/static/src/scss/web_theme_classic.scss",
         ],
     },
     "installable": True,

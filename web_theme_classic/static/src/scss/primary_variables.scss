@@ -1,0 +1,25 @@
+/***********************************************************
+        Variables
+************************************************************/
+
+/* The wtc prefix keeps these from conflicting with bootstrap vars*/
+$wtc-input-border-color: $o-gray-500 !default;
+$wtc-input-border-color-focus: $o-community-color !default;
+$wtc-input-color-required: $o-gray-900 !default;
+// Note, it is very important that this be a mix with transparent! The reason is that the normal $o-input-bg
+// is transparent and so some styles are built assuming this. The most notable examples are monetary fields
+// which are set up like this:
+// <div name="list_price" class="o_field_widget o_required_modifier o_field_monetary oe_inline">
+//      <div class="text-nowrap d-inline-flex w-100 align-items-baseline position-relative">
+//          <span class="o_input position-absolute pe-none d-flex w-100">
+//              <span>$&nbsp;</span>
+//              <span class="opacity-0 d-inline-block overflow-hidden mw-100 o_monetary_ghost_value">0.00</span>
+//          </span>
+//          <span class="opacity-0">$&nbsp;</span>
+//          <input class="o_input flex-grow-1 flex-shrink-1" autocomplete="off" id="list_price_0" type="text">
+//      </div>
+// </div>
+// So a non transparent background on the <input> element blocks off the display. so it is much better to immitate $o-input-invalid-bg
+// https://github.com/odoo/odoo/blob/18.0/addons/web/static/src/scss/primary_variables.scss#L170
+$wtc-input-background-color-required: mix(#0000ff, transparent, 10) !default;
+$wtc-input-color-placeholder-required: #6c757d !default;

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <!-- Just to avoid checking the cookies over and over again-->
+        <xpath
+            expr="//t[@t-if=&quot;request.cookies.get('color_scheme') == 'dark'&quot;]"
+            position="before"
+        >
+            <t t-set="color_scheme" t-value="request.cookies.get('color_scheme')" />
+            <t t-set="classic_theme" t-value="request.cookies.get('classic_theme')" />
+        </xpath>
+
+        <!-- We have to put this first, even though we are inserting after because in
+        the next step we will change the properties by which we find this node -->
+        <xpath
+            expr="//t[@t-if=&quot;request.cookies.get('color_scheme') == 'dark'&quot;]"
+            position="after"
+        >
+            <t t-elif="classic_theme == 'classic' and not color_scheme == 'dark'">
+                <t
+                    t-call-assets="web_theme_classic.assets_web_classic"
+                    media="screen"
+                />
+            </t>
+            <t t-elif="classic_theme == 'classic' and color_scheme == 'dark'">
+                <t
+                    t-call-assets="web_theme_classic.assets_web_dark_classic"
+                    media="screen"
+                />
+            </t>
+        </xpath>
+
+        <xpath
+            expr="//t[@t-if=&quot;request.cookies.get('color_scheme') == 'dark'&quot;]"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >color_scheme == 'dark' and not classic_theme == 'classic'</attribute>
+        </xpath>
+    </template>
+</odoo>
