@@ -23,13 +23,17 @@ export const colorSchemeService = {
     dependencies: ["orm", "ui"],
 
     async start(env, {orm, ui}) {
-        registry.category("user_menuitems").add("darkmode", darkModeSwitchItem);
-
-        if (!cookie.get("color_scheme")) {
-            const match_media = window.matchMedia("(prefers-color-scheme: dark)");
-            const dark_mode = match_media.matches;
-            cookie.set("color_scheme", dark_mode ? "dark" : "light");
-            if (dark_mode) browser.location.reload();
+        const device_preference = window.matchMedia("(prefers-color-scheme: dark)")
+            .matches
+            ? "dark"
+            : "light";
+        if (cookie.get("dark_mode_device_dependent") === "true") {
+            if (cookie.get("color_scheme") !== device_preference) {
+                cookie.set("color_scheme", device_preference);
+                browser.location.reload();
+            }
+        } else {
+            registry.category("user_menuitems").add("darkmode", darkModeSwitchItem);
         }
 
         return {

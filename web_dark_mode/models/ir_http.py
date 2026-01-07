@@ -10,12 +10,22 @@ class IrHttp(models.AbstractModel):
 
     @classmethod
     def _set_color_scheme(cls, response):
-        scheme = request.httprequest.cookies.get("color_scheme")
+        existing_scheme_cookie = request.httprequest.cookies.get("color_scheme")
+        device_dependent_scheme_cookie = request.httprequest.cookies.get(
+            "dark_mode_device_dependent"
+        )
         user = request.env.user
-        user_scheme = "dark" if getattr(user, "dark_mode", None) else "light"
+        user_pref = getattr(user, "dark_mode", None)
+        user_scheme = "dark" if user_pref else "light"
         device_dependent = getattr(user, "dark_mode_device_dependent", None)
-        if (not device_dependent) and scheme != user_scheme:
+
+        if (not device_dependent) and existing_scheme_cookie != user_scheme:
             response.set_cookie("color_scheme", user_scheme)
+
+        if (device_dependent) and device_dependent_scheme_cookie != "true":
+            response.set_cookie("dark_mode_device_dependent", "true")
+        elif (not device_dependent) and device_dependent_scheme_cookie is not None:
+            response.delete_cookie("dark_mode_device_dependent")
 
     @classmethod
     def _post_dispatch(cls, response):
