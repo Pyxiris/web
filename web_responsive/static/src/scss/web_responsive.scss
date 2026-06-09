@@ -6,17 +6,6 @@
 
 $chatter_zone_width: 35% !important;
 
-// Allow sticky header
-.o_action_manager {
-    .o_form_view {
-        overflow: unset;
-
-        .o_form_view_container {
-            overflow: auto;
-        }
-    }
-}
-
 @include media-breakpoint-down(sm) {
     .ui-menu-item-wrapper {
         display: inline-flex !important;
