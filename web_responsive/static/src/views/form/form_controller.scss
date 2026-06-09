@@ -1,6 +1,27 @@
 /* Copyright 2023 Tecnativa - Carlos Roca
  * Copyright 2023 Taras Shabaranskyi
+ * Copyright 2026 Liam Noonan
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
+
+// Lessen gaps between fields on mobile as requested here:
+// https://github.com/OCA/web/pull/2405#issuecomment-1435661180
+// .o_form_view {
+//     @include media-breakpoint-down(sm) {
+//         .o_field_widget {
+//             --fieldWidget-margin-bottom: 2px;
+//         }
+//         .o_group, .o_inner_group {
+//             .o_cell {
+//                 &.mb-3, &.mb-sm-0 {
+//                     margin-bottom: 0 !important;
+//                     &:not(:has(.o_field_widget)) {
+//                         margin-bottom: 2px !important;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // Many2one li items with wrap
 .o_field_many2one_selection {
