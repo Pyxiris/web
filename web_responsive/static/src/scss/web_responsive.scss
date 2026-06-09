@@ -4,14 +4,6 @@
  * Copyright 2023 Taras Shabaranskyi
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-@include media-breakpoint-down(sm) {
-    .ui-menu-item-wrapper {
-        display: inline-flex !important;
-        align-items: center;
-        height: 35px;
-    }
-}
-
 body:not(.o_statusbar_buttons) {
     .oe-toolbar {
         z-index: 0 !important;
