@@ -24,17 +24,20 @@
     ],
     "assets": {
         "web._assets_primary_variables": {
-            "/web_responsive/static/src/legacy/scss/form_variable.scss",
-            "/web_responsive/static/src/legacy/scss/primary_variable.scss",
+            (
+                "before",
+                "web/static/src/**/*.variables.scss",
+                "web_responsive/static/src/**/*.variables.scss",
+            ),
+            "/web_responsive/static/src/scss/primary_variable.scss",
         },
         "web.assets_backend": [
             "web_responsive/static/src/lib/fuse/fuse.basic.min.js",
-            "/web_responsive/static/src/legacy/scss/web_responsive.scss",
-            "/web_responsive/static/src/legacy/scss/big_boxes.scss",
-            "/web_responsive/static/src/legacy/scss/list_sticky_header.scss",
-            "/web_responsive/static/src/legacy/js/web_responsive.esm.js",
+            "/web_responsive/static/src/scss/*.scss",
+            "/web_responsive/static/src/js/*.js",
+            "web_responsive/static/src/core/**/*",
+            "web_responsive/static/src/views/**/*",
             "/web_responsive/static/src/legacy/xml/form_buttons.xml",
-            "/web_responsive/static/src/legacy/xml/custom_favorite_item.xml",
             "/web_responsive/static/src/components/apps_menu_tools.esm.js",
             "/web_responsive/static/src/components/apps_menu/*",
             "/web_responsive/static/src/components/apps_menu_item/*",
@@ -47,7 +50,6 @@
             "/web_responsive/static/src/components/chatter/*",
             "/web_responsive/static/src/components/control_panel/*",
             "/web_responsive/static/src/components/command_palette/*",
-            "/web_responsive/static/src/views/form/*",
         ],
         "web.assets_clickbot": [
             "/web_responsive/static/src/clickbot/clickbot.esm.js",
