@@ -48,17 +48,6 @@ $big-checkbox-size: 1.5em;
 }
 
 .o_add_favorite + .o_accordion_values {
-    .o_add_favorite_props {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-    }
-
-    .o_add_favorite_name {
-        margin-bottom: 0.5rem;
-        max-width: 100%;
-    }
-
     .form-check-input {
         height: $big-checkbox-size;
         width: $big-checkbox-size;
