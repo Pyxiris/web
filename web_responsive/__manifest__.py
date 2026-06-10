@@ -36,6 +36,7 @@
             "/web_responsive/static/src/scss/*.scss",
             "/web_responsive/static/src/js/*.js",
             "web_responsive/static/src/core/**/*",
+            "web_responsive/static/src/search/**/*",
             "web_responsive/static/src/views/**/*",
             "web_responsive/static/src/webclient/**/*",
             "/web_responsive/static/src/legacy/xml/form_buttons.xml",
