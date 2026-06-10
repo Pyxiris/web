@@ -21,14 +21,6 @@
     }
 }
 
-@include media-breakpoint-up(md) {
-    .app_settings_block > h2,
-    .app_settings_block > div > h2 {
-        @include o-position-sticky(0);
-        z-index: 10;
-    }
-}
-
 .o_list_table {
     .o_handle_cell,
     .o_list_record_remove {
