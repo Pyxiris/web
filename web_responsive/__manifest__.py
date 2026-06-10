@@ -37,6 +37,7 @@
             "/web_responsive/static/src/js/*.js",
             "web_responsive/static/src/core/**/*",
             "web_responsive/static/src/views/**/*",
+            "web_responsive/static/src/webclient/**/*",
             "/web_responsive/static/src/legacy/xml/form_buttons.xml",
             "/web_responsive/static/src/components/apps_menu_tools.esm.js",
             "/web_responsive/static/src/components/apps_menu/*",
