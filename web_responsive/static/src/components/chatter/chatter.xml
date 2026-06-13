@@ -42,12 +42,5 @@
             <i class="fa fa-clock-o me-sm-1" />
             <span class="d-none d-sm-inline">Activity</span>
         </xpath>
-        <!-- remove extra padding between the activity separator and the search message -->
-        <xpath
-            expr="//span[hasclass('o-mail-Chatter-topbarGrow')]"
-            position="attributes"
-        >
-            <attribute name="class" remove="pe-2" add="px-0" separator=" " />
-        </xpath>
     </t>
 </templates>
