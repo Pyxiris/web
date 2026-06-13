@@ -47,7 +47,6 @@
             "/web_responsive/static/src/components/menu_odoo_searchbar/*",
             "/web_responsive/static/src/components/menu_fuse_searchbar/*",
             "/web_responsive/static/src/components/menu_searchbar/*",
-            "/web_responsive/static/src/components/hotkey/*",
             "/web_responsive/static/src/components/file_viewer/*",
             "/web_responsive/static/src/components/chatter/*",
             "/web_responsive/static/src/components/control_panel/*",
