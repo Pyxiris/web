@@ -9,7 +9,7 @@
 import {Component, onWillStart, useState} from "@odoo/owl";
 import {useBus, useService} from "@web/core/utils/hooks";
 import {AppMenuItem} from "@web_responsive/components/apps_menu_item/apps_menu_item.esm";
-import {AppsMenuCanonicalSearchBar} from "@web_responsive/components/menu_canonical_searchbar/searchbar.esm";
+import {AppsMenuSearchBar} from "@web_responsive/components/menu_searchbar/searchbar.esm";
 import {NavBar} from "@web/webclient/navbar/navbar";
 import {WebClient} from "@web/webclient/webclient";
 import {browser} from "@web/core/browser/browser";
@@ -189,7 +189,7 @@ Object.assign(AppsMenu, {
 Object.assign(NavBar.components, {
     AppsMenu,
     AppMenuItem,
-    AppsMenuCanonicalSearchBar,
+    AppsMenuSearchBar,
 });
 
 // Add this patch after the WebClient patch
