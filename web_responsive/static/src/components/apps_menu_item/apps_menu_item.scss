@@ -4,16 +4,10 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
 :root {
-    .o_grid_apps_menu[data-theme="milk"] {
+    .o_grid_apps_menu {
         --app-menu-text-color: #{$app-menu-text-color};
         --app-menu-text-shadow: 1px 1px 1px #{rgba($white, 0.4)};
         --app-menu-hover-background: #{rgba(white, 0.4)};
-    }
-
-    .o_grid_apps_menu[data-theme="community"] {
-        --app-menu-text-color: white;
-        --app-menu-text-shadow: 1px 1px 1px #{rgba(black, 0.4)};
-        --app-menu-hover-background: #{rgba(white, 0.2)};
     }
 }
 

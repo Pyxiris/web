@@ -32,7 +32,6 @@
             "/web_responsive/static/src/scss/primary_variable.scss",
         },
         "web.assets_backend": [
-            "web_responsive/static/src/lib/fuse/fuse.basic.min.js",
             "/web_responsive/static/src/scss/*.scss",
             "/web_responsive/static/src/js/*.js",
             "web_responsive/static/src/core/**/*",
@@ -43,9 +42,6 @@
             "/web_responsive/static/src/components/apps_menu/*",
             "/web_responsive/static/src/components/apps_menu_item/*",
             "/web_responsive/static/src/components/menu_canonical_searchbar/*",
-            "/web_responsive/static/src/components/menu_odoo_searchbar/*",
-            "/web_responsive/static/src/components/menu_fuse_searchbar/*",
-            "/web_responsive/static/src/components/menu_searchbar/*",
             "/web_responsive/static/src/components/file_viewer/*",
             "/web_responsive/static/src/components/chatter/*",
             "/web_responsive/static/src/components/control_panel/*",

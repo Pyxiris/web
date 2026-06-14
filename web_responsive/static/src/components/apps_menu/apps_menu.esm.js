@@ -9,13 +9,12 @@
 import {Component, onWillStart, useState} from "@odoo/owl";
 import {useBus, useService} from "@web/core/utils/hooks";
 import {AppMenuItem} from "@web_responsive/components/apps_menu_item/apps_menu_item.esm";
-import {AppsMenuSearchBar} from "@web_responsive/components/menu_searchbar/searchbar.esm";
+import {AppsMenuCanonicalSearchBar} from "@web_responsive/components/menu_canonical_searchbar/searchbar.esm";
 import {NavBar} from "@web/webclient/navbar/navbar";
 import {WebClient} from "@web/webclient/webclient";
 import {browser} from "@web/core/browser/browser";
 import {patch} from "@web/core/utils/patch";
 import {router} from "@web/core/browser/router";
-import {session} from "@web/session";
 import {useHotkey} from "@web/core/hotkeys/hotkey_hook";
 import {user} from "@web/core/user";
 import {BurgerMenu} from "@web/webclient/burger_menu/burger_menu";
@@ -53,7 +52,6 @@ export class AppsMenu extends Component {
     setup() {
         super.setup();
         this.state = useState({open: false});
-        this.theme = session.apps_menu.theme || "milk";
         this.menuService = useService("menu");
         browser.localStorage.setItem("redirect_menuId", "");
         if (user.context.is_redirect_to_home) {
@@ -188,7 +186,11 @@ Object.assign(AppsMenu, {
     },
 });
 
-Object.assign(NavBar.components, {AppsMenu, AppMenuItem, AppsMenuSearchBar});
+Object.assign(NavBar.components, {
+    AppsMenu,
+    AppMenuItem,
+    AppsMenuCanonicalSearchBar,
+});
 
 // Add this patch after the WebClient patch
 patch(BurgerMenu.prototype, {
