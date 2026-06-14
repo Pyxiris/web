@@ -22,7 +22,7 @@
             <t t-else="" />
             <AppsMenu>
                 <t t-set-slot="search_bar">
-                    <AppsMenuSearchBar />
+                    <AppsMenuCanonicalSearchBar />
                 </t>
                 <AppMenuItem
                     t-foreach="apps"
@@ -39,7 +39,7 @@
 
     <!-- Apps menu -->
     <t t-name="web_responsive.AppsMenu">
-        <div class="o_grid_apps_menu" t-att-data-theme="theme">
+        <div class="o_grid_apps_menu">
             <button
                 class="o_grid_apps_menu__button"
                 title="Home Menu"
