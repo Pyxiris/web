@@ -22,7 +22,7 @@
             <t t-else="" />
             <AppsMenu>
                 <t t-set-slot="search_bar">
-                    <AppsMenuCanonicalSearchBar />
+                    <AppsMenuSearchBar />
                 </t>
                 <AppMenuItem
                     t-foreach="apps"
