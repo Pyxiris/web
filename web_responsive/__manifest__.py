@@ -41,7 +41,7 @@
             "/web_responsive/static/src/components/apps_menu_tools.esm.js",
             "/web_responsive/static/src/components/apps_menu/*",
             "/web_responsive/static/src/components/apps_menu_item/*",
-            "/web_responsive/static/src/components/menu_canonical_searchbar/*",
+            "/web_responsive/static/src/components/menu_searchbar/*",
             "/web_responsive/static/src/components/file_viewer/*",
             "/web_responsive/static/src/components/chatter/*",
             "/web_responsive/static/src/components/control_panel/*",
