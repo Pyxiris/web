@@ -4,18 +4,46 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
 :root {
-    .o_grid_apps_menu[data-theme="milk"] {
+    .o_grid_apps_menu {
         --apps-menu-scrollbar-background: #{$o-brand-odoo};
         --apps-menu-empty-search-color: $app-menu-text-color;
-    }
-
-    .o_grid_apps_menu[data-theme="community"] {
-        --apps-menu-scrollbar-background: white;
-        --apps-menu-empty-search-color: white;
     }
 }
 
 .o_grid_apps_menu .search-container {
+    width: 100%;
+
+    .search-input {
+        display: flex;
+        justify-items: center;
+        gap: 0.75rem;
+        box-shadow: $app-menu-box-shadow;
+        border-radius: 4px;
+        padding: 0.5rem 0.75rem;
+        background-color: white;
+
+        .search-icon {
+            color: $app-menu-text-color;
+            font-size: 1.5rem;
+            padding-top: 1px;
+        }
+
+        .form-control {
+            height: 1.75rem;
+            background: none;
+            border: none;
+            color: $app-menu-text-color;
+            display: block;
+            padding: 0;
+            box-shadow: none;
+
+            &::placeholder {
+                color: $app-menu-text-color;
+                opacity: 0.5;
+            }
+        }
+    }
+
     // Allow to scroll only on results, keeping static search box above
     .search-list {
         display: flex;
