@@ -19,9 +19,6 @@
     "development_status": "Production/Stable",
     "maintainers": ["Tardo", "SplashS"],
     "excludes": ["web_enterprise"],
-    "data": [
-        "views/res_users_views.xml",
-    ],
     "assets": {
         "web._assets_primary_variables": {
             (
