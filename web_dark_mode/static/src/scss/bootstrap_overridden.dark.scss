@@ -1,6 +1,10 @@
 // This overrides the overrides in web/static/src/scss/bootstrap_overridden.scss
 // and also some additional overrides to web/static/lib/bootstrap/scss/_variables.scss
 
+// Defaults
+// No changes to default, but we need it defined for use later in this file before default loads.
+$border-width: 1px !default; // BS Default
+
 // web/static/lib/bootstrap/scss/_variables.scss sets these colors with tint-color() and shade-color()
 // but we inversed those functions in web_dark_mode/static/src/scss/bs_functions_overrides.dark.scss
 // so we have to adjust a bit. Most noticable in purchase dashboard (19.0) and banners in html editor
@@ -44,6 +48,7 @@ $kbd-box-shadow:
 // Input
 $input-focus-box-shadow: 0 !default;
 $input-focus-border-color: $o-enterprise-action-color !default;
+$form-check-input-border: $border-width solid $o-gray-500 !default;
 $form-check-input-checked-color: $o-white !default;
 $form-check-input-checked-border-color: $o-enterprise-action-color !default;
 $form-check-input-checked-bg-color: $o-enterprise-action-color !default;
