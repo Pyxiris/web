@@ -9,6 +9,7 @@
         <a
             t-att-class="className"
             role="button"
+            tabindex="0"
             t-att-data-menu-xmlid="props.app.xmlid"
             t-att-href="props.href"
             t-on-click="onClick"

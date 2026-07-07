@@ -14,6 +14,8 @@ import {
 import {NavBar} from "@web/webclient/navbar/navbar";
 import {actionService} from "@web/webclient/actions/action_service";
 import {browser} from "@web/core/browser/browser";
+import {commandService} from "@web/core/commands/command_service";
+import {dialogService} from "@web/core/dialog/dialog_service";
 import {hotkeyService} from "@web/core/hotkeys/hotkey_service";
 import {makeTestEnv} from "@web/../tests/helpers/mock_env";
 import {menuService} from "@web/webclient/menus/menu_service";
@@ -34,6 +36,8 @@ QUnit.module("AppsMenu", {
         target = getFixture();
         serviceRegistry.add("menu", menuService);
         serviceRegistry.add("action", actionService);
+        serviceRegistry.add("command", commandService);
+        serviceRegistry.add("dialog", dialogService);
         serviceRegistry.add("notification", notificationService);
         serviceRegistry.add("hotkey", hotkeyService);
         serviceRegistry.add("ui", uiService);

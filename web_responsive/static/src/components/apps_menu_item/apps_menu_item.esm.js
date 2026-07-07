@@ -5,11 +5,21 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
 import {Component} from "@odoo/owl";
-import {getMenuIconProps} from "@web_responsive/components/apps_menu_tools.esm";
 
 export class AppMenuItem extends Component {
+    /**
+     * Same icon resolution as core `computeAppsAndMenuItems` for apps.
+     */
     get iconProps() {
-        return getMenuIconProps(this.props.app);
+        const menu = this.props.app;
+        if (menu.webIconData) {
+            return {webIconData: menu.webIconData};
+        }
+        const [iconClass, color, backgroundColor] = (menu.webIcon || "").split(",");
+        if (backgroundColor !== undefined) {
+            return {webIcon: {iconClass, color, backgroundColor}};
+        }
+        return {webIconData: "/web/static/img/default_icon_app.png"};
     }
 
     get isActive() {

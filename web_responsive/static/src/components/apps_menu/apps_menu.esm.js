@@ -6,10 +6,9 @@
  * Copyright 2023 Taras Shabaranskyi
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-import {Component, useState} from "@odoo/owl";
-import {useBus} from "@web/core/utils/hooks";
+import {Component, useRef, useState} from "@odoo/owl";
+import {useAutofocus, useBus, useService} from "@web/core/utils/hooks";
 import {AppMenuItem} from "@web_responsive/components/apps_menu_item/apps_menu_item.esm";
-import {AppsMenuSearchBar} from "@web_responsive/components/menu_searchbar/searchbar.esm";
 import {NavBar} from "@web/webclient/navbar/navbar";
 import {WebClient} from "@web/webclient/webclient";
 import {patch} from "@web/core/utils/patch";
@@ -29,10 +28,58 @@ export class AppsMenu extends Component {
     setup() {
         super.setup();
         this.state = useState({open: false});
+        this.command = useService("command");
+        this.menuRef = useRef("menu");
+        this.searchBarInput = useAutofocus({refName: "SearchBarInput", mobile: true});
         useBus(this.env.bus, "ACTION_MANAGER:UI-UPDATED", () => {
             this.setOpenState(false);
         });
         this._setupKeyNavigation();
+    }
+
+    get searchInputValue() {
+        const {el} = this.searchBarInput;
+        return el ? el.value : "";
+    }
+
+    set searchInputValue(value) {
+        const {el} = this.searchBarInput;
+        if (el) {
+            el.value = value;
+        }
+    }
+
+    onSearchInput() {
+        if (this.searchInputValue) {
+            this._openSearchMenu(this.searchInputValue);
+            this.searchInputValue = "";
+        }
+    }
+
+    onSearchKeydown(ev) {
+        if (this.searchInputValue) {
+            return;
+        }
+        const apps = this.menuRef.el?.querySelectorAll(".o-app-menu-item");
+        if (!apps?.length) {
+            return;
+        }
+        if (ev.key === "ArrowDown" || ev.key === "ArrowRight") {
+            ev.preventDefault();
+            apps[0].focus();
+        } else if (ev.key === "ArrowUp" || ev.key === "ArrowLeft") {
+            ev.preventDefault();
+            apps[apps.length - 1].focus();
+        }
+    }
+
+    onSearchClick() {
+        this._openSearchMenu();
+    }
+
+    _openSearchMenu(value) {
+        const searchValue = value ? `/${value}` : "/";
+        this.command.openMainPalette({searchValue}, null);
     }
 
     setOpenState(open_state) {
@@ -81,26 +128,23 @@ export class AppsMenu extends Component {
     }
 
     _onWindowKeydown(direction) {
-        const focusableInputElements = document.querySelectorAll(".o-app-menu-item");
-        if (focusableInputElements.length) {
-            const focusable = [...focusableInputElements];
-            const index = focusable.indexOf(document.activeElement);
-            let nextIndex = 0;
-            if (direction === "prev" && index >= 0) {
-                if (index > 0) {
-                    nextIndex = index - 1;
-                } else {
-                    nextIndex = focusable.length - 1;
-                }
-            } else if (direction === "next") {
-                if (index + 1 < focusable.length) {
-                    nextIndex = index + 1;
-                } else {
-                    nextIndex = 0;
-                }
-            }
-            focusableInputElements[nextIndex].focus();
+        const apps = [...(this.menuRef.el?.querySelectorAll(".o-app-menu-item") ?? [])];
+        if (!apps.length) {
+            return;
         }
+        const index = apps.indexOf(document.activeElement);
+        if (direction === "prev") {
+            if (index <= 0) {
+                this.searchBarInput.el?.focus();
+                return;
+            }
+            apps[index - 1].focus();
+            return;
+        }
+        if (index === -1) {
+            return;
+        }
+        apps[index < apps.length - 1 ? index + 1 : 0].focus();
     }
 
     onMenuClick() {
@@ -121,18 +165,12 @@ patch(NavBar.prototype, {
 
 Object.assign(AppsMenu, {
     template: "web_responsive.AppsMenu",
-    props: {
-        slots: {
-            type: Object,
-            optional: true,
-        },
-    },
+    props: {},
 });
 
 Object.assign(NavBar.components, {
     AppsMenu,
     AppMenuItem,
-    AppsMenuSearchBar,
 });
 
 // Add this patch after the WebClient patch

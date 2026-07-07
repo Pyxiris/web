@@ -21,9 +21,6 @@
             </t>
             <t t-else="" />
             <AppsMenu>
-                <t t-set-slot="search_bar">
-                    <AppsMenuSearchBar />
-                </t>
                 <AppMenuItem
                     t-foreach="apps"
                     t-as="app"
@@ -39,7 +36,7 @@
 
     <!-- Apps menu -->
     <t t-name="web_responsive.AppsMenu">
-        <div class="o_grid_apps_menu">
+        <div class="o_grid_apps_menu" t-ref="menu">
             <button
                 class="o_grid_apps_menu__button"
                 title="Home Menu"
@@ -49,7 +46,26 @@
                 <i class="oi oi-apps fs-4" />
             </button>
             <div t-if="state.open" class="app-menu-container">
-                <t t-slot="search_bar" />
+                <div class="search-container">
+                    <button
+                        type="button"
+                        class="search-trigger"
+                        title="Search menus..."
+                        t-on-click="onSearchClick"
+                    >
+                        <i class="fa fa-search search-icon" />
+                        <input
+                            type="search"
+                            t-ref="SearchBarInput"
+                            t-on-input="onSearchInput"
+                            t-on-keydown="onSearchKeydown"
+                            t-on-click.stop=""
+                            autocomplete="off"
+                            class="search-input"
+                            tabindex="-1"
+                        />
+                    </button>
+                </div>
                 <div class="o-app-menu-list">
                     <t t-slot="default" />
                 </div>

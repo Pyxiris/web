@@ -8,6 +8,8 @@ import {click, getFixture, mount, patchWithCleanup} from "@web/../tests/helpers/
 import {NavBar} from "@web/webclient/navbar/navbar";
 import {actionService} from "@web/webclient/actions/action_service";
 import {browser} from "@web/core/browser/browser";
+import {commandService} from "@web/core/commands/command_service";
+import {dialogService} from "@web/core/dialog/dialog_service";
 import {hotkeyService} from "@web/core/hotkeys/hotkey_service";
 import {makeTestEnv} from "@web/../tests/helpers/mock_env";
 import {menuService} from "@web/webclient/menus/menu_service";
@@ -28,6 +30,8 @@ QUnit.module("AppsMenu Search", {
         target = getFixture();
         serviceRegistry.add("menu", menuService);
         serviceRegistry.add("action", actionService);
+        serviceRegistry.add("command", commandService);
+        serviceRegistry.add("dialog", dialogService);
         serviceRegistry.add("notification", notificationService);
         serviceRegistry.add("hotkey", hotkeyService);
         serviceRegistry.add("ui", uiService);
@@ -49,5 +53,5 @@ QUnit.test("can be rendered", async (assert) => {
     const env = await makeTestEnv(baseConfig);
     await mount(NavBar, target, {env});
     await click(target, "button.o_grid_apps_menu__button");
-    assert.containsOnce(target, ".app-menu-container .search-input");
+    assert.containsOnce(target, ".app-menu-container .search-trigger");
 });
