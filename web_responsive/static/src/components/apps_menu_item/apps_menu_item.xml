@@ -19,10 +19,21 @@
                 t-att-data-menu-xmlid="props.app.xmlid"
             >
                 <img
+                    t-if="iconProps.webIconData"
                     class="o-app-menu-item__icon rounded-3"
                     draggable="false"
-                    t-att-src="webIconData"
+                    t-att-src="iconProps.webIconData"
                 />
+                <div
+                    t-else=""
+                    class="o-app-menu-item__icon rounded-3 d-flex align-items-center justify-content-center"
+                    t-attf-style="background-color:{{iconProps.webIcon.backgroundColor}}"
+                >
+                    <i
+                        t-att-class="iconProps.webIcon.iconClass"
+                        t-attf-style="color:{{iconProps.webIcon.color}}"
+                    />
+                </div>
                 <i t-if="isActive" class="fa fa-check-circle o-app-menu-item__active" />
             </div>
             <span class="o-app-menu-item__name" t-att-title="props.app.name">

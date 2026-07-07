@@ -6,15 +6,13 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
 import {Component, onPatched, onWillPatch, useRef, useState} from "@odoo/owl";
-import {
-    collectRootMenuItems,
-    collectSubMenuItems,
-} from "@web_responsive/components/apps_menu_tools.esm";
+import {getMenuIconProps} from "@web_responsive/components/apps_menu_tools.esm";
 import {useAutofocus, useService} from "@web/core/utils/hooks";
 import {debounce} from "@web/core/utils/timing";
 import {escapeRegExp} from "@web/core/utils/strings";
 import {fuzzyLookup} from "@web/core/utils/search";
 import {scrollTo} from "@web/core/utils/scrolling";
+import {computeAppsAndMenuItems} from "@web/webclient/menus/menu_helpers";
 
 /**
  * @extends Component
@@ -79,19 +77,27 @@ export class AppsMenuSearchBar extends Component {
      * @returns {Object[]}
      */
     getRootMenuItems() {
-        return this.menuService.getApps().reduce(collectRootMenuItems, []);
+        const {apps} = computeAppsAndMenuItems(this.menuService.getMenuAsTree("root"));
+        return apps.map((app) => ({
+            ...app,
+            ...getMenuIconProps(app),
+            displayName: app.label,
+            path: app.href,
+        }));
     }
 
     /**
      * @returns {Object[]}
      */
     getSubMenuItems() {
-        const response = [];
-        for (const menu of this.menuService.getApps()) {
-            const menuTree = this.menuService.getMenuAsTree(menu.id);
-            collectSubMenuItems(response, null, menuTree);
-        }
-        return response;
+        const {menuItems} = computeAppsAndMenuItems(
+            this.menuService.getMenuAsTree("root")
+        );
+        return menuItems.map((item) => ({
+            ...item,
+            displayName: item.parents ? `${item.parents} / ${item.label}` : item.label,
+            path: item.href,
+        }));
     }
 
     /**
@@ -106,36 +112,9 @@ export class AppsMenuSearchBar extends Component {
             state.subItems = [];
             return;
         }
+        // Search on the forward breadcrumb path (e.g. "Invoicing / Customers / Customers").
+        // Core's command palette reverses the path for lookup, which breaks queries like "invcuscus".
         const searchField = (item) => item.displayName;
-        // Update search results paths
-        for (const root in this.rootMenuItems) {
-            // Root is an app
-            if (this.rootMenuItems[root]?.actionPath) {
-                this.rootMenuItems[root].path =
-                    `/odoo/${this.rootMenuItems[root].actionPath}`;
-            }
-            // Root is a module
-            else {
-                this.rootMenuItems[root].path =
-                    `/odoo/action-${this.rootMenuItems[root].actionID}`;
-            }
-        }
-        for (const item in this.subMenuItems) {
-            for (const root in this.rootMenuItems) {
-                if (this.subMenuItems[item].appID === this.rootMenuItems[root].appID) {
-                    // Root is an app
-                    if (this.rootMenuItems[root]?.actionPath) {
-                        this.subMenuItems[item].path =
-                            `/odoo/${this.rootMenuItems[root].actionPath}/action-${this.subMenuItems[item].actionID}`;
-                    }
-                    // Root is a module
-                    else {
-                        this.subMenuItems[item].path =
-                            `/odoo/action-${this.subMenuItems[item].actionID}`;
-                    }
-                }
-            }
-        }
         state.rootItems = fuzzyLookup(query, this.rootMenuItems, searchField);
         state.subItems = fuzzyLookup(query, this.subMenuItems, searchField);
     }

@@ -4,14 +4,12 @@
  * Copyright 2023 Taras Shabaranskyi
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
-import {Component, onWillUpdateProps} from "@odoo/owl";
-import {getWebIconData} from "@web_responsive/components/apps_menu_tools.esm";
+import {Component} from "@odoo/owl";
+import {getMenuIconProps} from "@web_responsive/components/apps_menu_tools.esm";
 
 export class AppMenuItem extends Component {
-    setup() {
-        super.setup();
-        this.webIconData = getWebIconData(this.props.app);
-        onWillUpdateProps(this.onUpdateProps);
+    get iconProps() {
+        return getMenuIconProps(this.props.app);
     }
 
     get isActive() {
@@ -25,10 +23,6 @@ export class AppMenuItem extends Component {
             classItems.push("active");
         }
         return classItems.join(" ");
-    }
-
-    onUpdateProps(nextProps) {
-        this.webIconData = getWebIconData(nextProps.app);
     }
 
     onClick() {

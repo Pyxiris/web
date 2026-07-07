@@ -36,11 +36,22 @@
                             tabindex="-1"
                         >
                             <img
+                                t-if="menu.webIconData"
                                 class="search-item__image"
                                 t-att-src="menu.webIconData"
                                 alt="App Icon"
                             />
-                            <span class="search-item__name" t-att-title="menu.name">
+                            <div
+                                t-else=""
+                                class="search-item__image d-flex align-items-center justify-content-center"
+                                t-attf-style="background-color:{{menu.webIcon.backgroundColor}}"
+                            >
+                                <i
+                                    t-att-class="menu.webIcon.iconClass"
+                                    t-attf-style="color:{{menu.webIcon.color}}"
+                                />
+                            </div>
+                            <span class="search-item__name" t-att-title="menu.label">
                                 <t
                                     t-foreach="_splitName(menu.displayName)"
                                     t-as="name"
@@ -71,7 +82,7 @@
                         >
                             <span
                                 class="search-item__name px-2 py-1"
-                                t-att-title="menu.name"
+                                t-att-title="menu.label"
                             >
                                 <t
                                     t-foreach="_splitName(menu.displayName)"
