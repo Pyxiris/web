@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2018 Tecnativa - Jairo Llopis
+     Copyright 2021 ITerra - Sergey Shebanin
+     Copyright 2023 Onestein - Anjeel Haria
+     Copyright 2023 Taras Shabaranskyi
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<templates>
+    <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension">
+        <xpath expr="//t[@t-if='this.ui.isSmall']" position="before">
+            <div t-if="!isScopedApp" class="o_navbar_apps_menu">
+                <div class="o_grid_apps_menu">
+                    <button
+                        class="o_grid_apps_menu__button"
+                        title="Home Menu"
+                        data-hotkey="h"
+                        t-on-click.stop="onAppsMenuToggle"
+                    >
+                        <i class="oi oi-apps fs-4" />
+                    </button>
+                    <div
+                        t-if="state.isAllAppsMenuOpened"
+                        class="app-menu-container"
+                        tabindex="-1"
+                        t-ref="appsMenuOverlay"
+                        t-on-keydown="onAppsMenuKeydown"
+                    >
+                        <button
+                            type="button"
+                            class="search-icon-button o-app-menu-item fa fa-search fs-5"
+                            title="Search menus..."
+                            t-on-click="onAppsMenuSearchClick"
+                        />
+                        <div class="o-app-menu-list">
+                            <a
+                                t-foreach="apps"
+                                t-as="app"
+                                t-key="app.id"
+                                class="o-app-menu-item o_app"
+                                t-att-class="{active: currentApp === app}"
+                                t-att-data-menu-xmlid="app.xmlid"
+                                t-att-href="getMenuItemHref(app)"
+                                t-on-click.prevent="() => {this.onNavBarDropdownItemSelection(app); this._closeAppMenuSidebar();}"
+                                draggable="false"
+                            >
+                                <div class="position-relative">
+                                    <img
+                                        t-if="app.webIconData"
+                                        class="o-app-menu-item__icon rounded-3"
+                                        draggable="false"
+                                        t-attf-src="{{app.webIconData}}"
+                                    />
+                                    <i
+                                        t-if="currentApp === app"
+                                        class="fa fa-check-circle o-app-menu-item__active"
+                                    />
+                                </div>
+                                <span
+                                    class="o-app-menu-item__name"
+                                    t-att-title="app.name"
+                                >
+                                    <t t-esc="app.name" />
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-else='']" position="replace">
+            <t t-else="">
+                <div t-if="isScopedApp" class="mx-2" />
+            </t>
+        </xpath>
+    </t>
+</templates>

@@ -12,6 +12,9 @@
                 #{$app-menu-background-color},
                 #{desaturate(lighten($app-menu-background-color, 20%), 15)}
             );
+        --app-menu-text-color: #{$app-menu-text-color};
+        --app-menu-text-shadow: 1px 1px 1px #{rgba($white, 0.4)};
+        --app-menu-hover-background: #{rgba(white, 0.4)};
     }
 }
 
@@ -28,17 +31,11 @@
     left: 0 !important;
 }
 
-.o_apps_menu_opened .o_main_navbar {
+body:has(.app-menu-container) .o_main_navbar {
     .o_menu_brand,
     .o_menu_sections {
         display: none !important;
     }
-}
-
-// hide and save odoo default QUnit tests
-.o_navbar_apps_menu.hide .dropdown-toggle {
-    position: absolute !important;
-    z-index: -100 !important;
 }
 
 // Iconized full screen apps menu
@@ -62,12 +59,18 @@
     .o-app-menu-list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+        align-self: stretch;
         width: 100%;
         gap: 0.25rem;
 
         @include media-breakpoint-up(sm) {
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
         }
+    }
+
+    .search-icon-button {
+        padding: 1rem;
+        color: var(--app-menu-text-color);
     }
 }
 
@@ -80,18 +83,14 @@
     background: var(--app-menu-background);
     background-size: cover;
     border-radius: 0;
-    // Display apps in a grid
     align-content: flex-start;
+    align-items: center;
     display: flex !important;
     z-index: 1024 !important;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: flex-start;
-
-    // Hide app icons when searching
-    .has-results ~ .o-app-menu-list {
-        display: none;
-    }
+    outline: none;
 
     @include media-breakpoint-up(lg) {
         padding: {
@@ -101,7 +100,60 @@
     }
 }
 
-// Sidebar positioning
-.o_app_menu_sidebar {
-    transform: translateX(-100%);
+.o-app-menu-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    gap: 0.25rem;
+    transition:
+        ease box-shadow,
+        transform,
+        0.3s;
+    background: unset;
+    outline: unset;
+    border: unset;
+    padding: 0.75rem 0.5rem;
+    justify-content: flex-start;
+    align-items: center;
+    white-space: normal;
+    user-select: none;
+    height: max-content;
+
+    &__name {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 1em;
+        text-shadow: var(--app-menu-text-shadow);
+        color: var(--app-menu-text-color);
+        text-align: center;
+    }
+
+    &__icon {
+        height: auto;
+        max-width: 64px;
+        width: 64px;
+        aspect-ratio: 1;
+        padding: 10px;
+        background-color: white;
+        box-shadow: $app-menu-box-shadow;
+        font-size: 2rem;
+    }
+
+    &__active {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        text-shadow: 0 0 2px rgba(250, 250, 250, 0.6);
+        color: $app-menu-text-color;
+    }
+
+    &:focus,
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 12px -8px transparentize($app-menu-text-color, 0.6);
+        background-color: var(--app-menu-hover-background) !important;
+        backdrop-filter: blur(2px);
+    }
 }
