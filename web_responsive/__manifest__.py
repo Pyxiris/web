@@ -35,14 +35,8 @@
             "web_responsive/static/src/search/**/*",
             "web_responsive/static/src/views/**/*",
             "web_responsive/static/src/webclient/**/*",
-            "/web_responsive/static/src/components/apps_menu_tools.esm.js",
-            "/web_responsive/static/src/components/apps_menu/*",
-            "/web_responsive/static/src/components/apps_menu_item/*",
-            "/web_responsive/static/src/components/menu_searchbar/*",
             "/web_responsive/static/src/components/file_viewer/*",
             "/web_responsive/static/src/components/chatter/*",
-            "/web_responsive/static/src/components/control_panel/*",
-            "/web_responsive/static/src/components/command_palette/*",
             # Don't include dark mode files in light mode
             ("remove", "web_responsive/static/src/**/*.dark.scss"),
         ],
@@ -52,9 +46,8 @@
         "web.assets_clickbot": [
             "/web_responsive/static/src/clickbot/clickbot.esm.js",
         ],
-        "web.qunit_suite_tests": [
-            "/web_responsive/static/tests/apps_menu_tests.esm.js",
-            "/web_responsive/static/tests/apps_menu_search_tests.esm.js",
+        "web.assets_unit_tests": [
+            "web_responsive/static/tests/**/*.test.js",
         ],
     },
     "sequence": 1,
