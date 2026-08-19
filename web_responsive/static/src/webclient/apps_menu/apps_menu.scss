@@ -1,0 +1,163 @@
+/* Copyright 2018 Tecnativa - Jairo Llopis
+ * Copyright 2021 ITerra - Sergey Shebanin
+ * Copyright 2023 Taras Shabaranskyi
+ * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
+
+:root {
+    .wr_apps_menu_container {
+        --app-menu-background:
+            url("../../img/home-menu-bg-overlay.svg"),
+            linear-gradient(
+                to bottom,
+                #{$app-menu-background-color},
+                #{desaturate(lighten($app-menu-background-color, 20%), 15)}
+            );
+        --app-menu-text-color: #{$app-menu-text-color};
+        --app-menu-text-shadow: 1px 1px 1px #{rgba($white, 0.4)};
+        --app-menu-hover-background: #{rgba(white, 0.4)};
+    }
+}
+
+@mixin full-screen-dropdown {
+    border: none;
+    box-shadow: none;
+    height: 100%;
+    max-height: calc(var(--vh100, 100vh) - #{$o-navbar-height});
+    max-height: calc(100dvh - #{$o-navbar-height});
+    position: fixed;
+    margin: 0;
+    width: 100vw;
+    z-index: 1000;
+    left: 0 !important;
+}
+
+body:has(.wr_apps_menu_container) .o_main_navbar {
+    .o_menu_brand,
+    .o_menu_sections {
+        display: none !important;
+    }
+}
+
+// Iconized full screen apps menu
+.wr_apps_menu_toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: unset;
+    border: unset;
+    outline: unset;
+    text-decoration: none;
+    margin-right: 0.25rem;
+    min-height: $o-navbar-height;
+    height: $o-navbar-height;
+    width: $o-navbar-height;
+    color: $o-navbar-brand-color;
+
+    &:hover,
+    &:focus {
+        background: $o-navbar-entry-bg--hover;
+        color: $o-navbar-brand-color;
+        text-decoration: none;
+    }
+}
+
+.wr_apps_menu_container {
+    @include full-screen-dropdown();
+    overflow: auto;
+    background-clip: border-box;
+    padding: 1rem 0.5rem;
+    gap: 1rem;
+    background: var(--app-menu-background);
+    background-size: cover;
+    border-radius: 0;
+    align-content: flex-start;
+    align-items: center;
+    display: flex !important;
+    z-index: 1024 !important;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    outline: none;
+
+    @include media-breakpoint-up(lg) {
+        padding: {
+            left: calc((100vw - 850px) / 2);
+            right: calc((100vw - 850px) / 2);
+        }
+    }
+
+    .wr_apps_menu_list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+        align-self: stretch;
+        width: 100%;
+        gap: 0.25rem;
+
+        @include media-breakpoint-up(sm) {
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        }
+    }
+
+    .search-icon-button {
+        padding: 1rem;
+        color: var(--app-menu-text-color);
+    }
+}
+
+.wr_apps_menu_item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    gap: 0.25rem;
+    transition:
+        ease box-shadow,
+        transform,
+        0.3s;
+    background: unset;
+    outline: unset;
+    border: unset;
+    padding: 0.75rem 0.5rem;
+    justify-content: flex-start;
+    align-items: center;
+    white-space: normal;
+    user-select: none;
+    height: max-content;
+
+    &__name {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 1em;
+        text-shadow: var(--app-menu-text-shadow);
+        color: var(--app-menu-text-color);
+        text-align: center;
+    }
+
+    &__icon {
+        height: auto;
+        max-width: 64px;
+        width: 64px;
+        aspect-ratio: 1;
+        padding: 10px;
+        background-color: white;
+        box-shadow: $app-menu-box-shadow;
+        font-size: 2rem;
+    }
+
+    &__active {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        text-shadow: 0 0 2px rgba(250, 250, 250, 0.6);
+        color: $app-menu-text-color;
+    }
+
+    &:focus,
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 12px -8px transparentize($app-menu-text-color, 0.6);
+        background-color: var(--app-menu-hover-background) !important;
+        backdrop-filter: blur(2px);
+    }
+}
