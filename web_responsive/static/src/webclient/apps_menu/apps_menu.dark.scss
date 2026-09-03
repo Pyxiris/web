@@ -2,7 +2,8 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
 :root {
-    .o_grid_apps_menu {
+    .o_grid_apps_menu,
+    .o_apps_menu {
         --app-menu-background: linear-gradient(
             to bottom,
             #{$o-gray-300},
@@ -14,7 +15,8 @@
     }
 }
 
-.o_grid_apps_menu {
+.o_grid_apps_menu,
+.o_apps_menu {
     .o-app-menu-item {
         &__icon {
             background-color: $o-gray-400;

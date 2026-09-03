@@ -4,7 +4,8 @@
  * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
 
 :root {
-    .o_grid_apps_menu {
+    .o_grid_apps_menu,
+    .o_apps_menu {
         --app-menu-background:
             url("../../img/home-menu-bg-overlay.svg"),
             linear-gradient(
@@ -18,20 +19,7 @@
     }
 }
 
-@mixin full-screen-dropdown {
-    border: none;
-    box-shadow: none;
-    height: 100%;
-    max-height: calc(var(--vh100, 100vh) - #{$o-navbar-height});
-    max-height: calc(100dvh - #{$o-navbar-height});
-    position: fixed;
-    margin: 0;
-    width: 100vw;
-    z-index: 1000;
-    left: 0 !important;
-}
-
-body:has(.app-menu-container) .o_main_navbar {
+body:has(.o_action_manager .o_apps_menu) .o_main_navbar {
     .o_menu_brand,
     .o_menu_sections {
         display: none !important;
@@ -51,9 +39,36 @@ body:has(.app-menu-container) .o_main_navbar {
         color: $o-navbar-brand-color;
 
         &:hover,
-        &:focus {
+        &:focus,
+        &.active {
             background: $o-navbar-entry-bg--hover;
         }
+    }
+}
+
+.o_apps_menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-height: calc(var(--vh100, 100vh) - #{$o-navbar-height});
+    min-height: calc(100dvh - #{$o-navbar-height});
+    overflow: auto;
+    padding: 1rem 0.5rem;
+    background: var(--app-menu-background);
+    background-size: cover;
+    outline: none;
+
+    @include media-breakpoint-up(lg) {
+        padding: {
+            left: calc((100vw - 850px) / 2);
+            right: calc((100vw - 850px) / 2);
+        }
+    }
+
+    .search-icon-button {
+        padding: 1rem;
+        color: var(--app-menu-text-color);
     }
 
     .o-app-menu-list {
@@ -65,37 +80,6 @@ body:has(.app-menu-container) .o_main_navbar {
 
         @include media-breakpoint-up(sm) {
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        }
-    }
-
-    .search-icon-button {
-        padding: 1rem;
-        color: var(--app-menu-text-color);
-    }
-}
-
-.app-menu-container {
-    @include full-screen-dropdown();
-    overflow: auto;
-    background-clip: border-box;
-    padding: 1rem 0.5rem;
-    gap: 1rem;
-    background: var(--app-menu-background);
-    background-size: cover;
-    border-radius: 0;
-    align-content: flex-start;
-    align-items: center;
-    display: flex !important;
-    z-index: 1024 !important;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    outline: none;
-
-    @include media-breakpoint-up(lg) {
-        padding: {
-            left: calc((100vw - 850px) / 2);
-            right: calc((100vw - 850px) / 2);
         }
     }
 }

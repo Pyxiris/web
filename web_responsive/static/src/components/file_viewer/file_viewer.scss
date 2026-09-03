@@ -53,6 +53,6 @@
     }
 }
 
-.o_apps_menu_opened .o-FileViewerContainer {
+body:has(.o_action_manager .o_apps_menu) .o-FileViewerContainer {
     display: none !important;
 }

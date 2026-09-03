@@ -20,7 +20,7 @@ const originalQuerySelector = document.querySelector;
 document.querySelector = function (selector) {
     if (checkCalledFromClickEverywhere()) {
         if (selector === ".o-dropdown--menu .o_app") {
-            selector = ".o-app-menu-list .o_app";
+            selector = ".o_action_manager .o-app-menu-list .o_app";
         } else if (selector === ".o_navbar_apps_menu .dropdown-toggle") {
             selector = ".o_navbar_apps_menu .o_grid_apps_menu__button";
         } else if (
@@ -28,7 +28,7 @@ document.querySelector = function (selector) {
         ) {
             selector = selector.replace(
                 ".o-dropdown--menu .dropdown-item",
-                ".o-app-menu-list .o_app"
+                ".o_action_manager .o-app-menu-list .o_app"
             );
         }
     }
@@ -38,7 +38,7 @@ const originalQuerySelectorAll = document.querySelectorAll;
 document.querySelectorAll = function (selector) {
     if (checkCalledFromClickEverywhere()) {
         if (selector === ".o-dropdown--menu .o_app") {
-            selector = ".o-app-menu-list .o_app";
+            selector = ".o_action_manager .o-app-menu-list .o_app";
         }
     }
     return originalQuerySelectorAll.call(this, selector);
