@@ -128,7 +128,7 @@ test("Escape closes the overlay", async () => {
 });
 
 test.tags("desktop");
-test("arrow keys move focus between overlay items", async () => {
+test("arrow keys move focus across the app grid", async () => {
     await mountWithCleanup(NavBar);
     await contains(".o_navbar_apps_menu .wr_apps_menu_toggle").click();
     await animationFrame();
@@ -142,10 +142,16 @@ test("arrow keys move focus between overlay items", async () => {
     expect(searchBtn).toBeFocused();
     await press("ArrowDown");
     expect(firstApp).toBeFocused();
-    await press("ArrowDown");
+    await press("ArrowRight");
     expect(secondApp).toBeFocused();
-    await press("ArrowUp");
+    await press("ArrowRight");
+    expect(secondApp).toBeFocused(); // No wrap at end of row
+    await press("ArrowLeft");
     expect(firstApp).toBeFocused();
+    await press("ArrowUp");
+    expect(searchBtn).toBeFocused();
+    await press("ArrowUp");
+    expect(searchBtn).toBeFocused(); // No wrap from search
 });
 
 test.tags("desktop");
