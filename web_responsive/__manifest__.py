@@ -23,10 +23,15 @@
         "web._assets_primary_variables": {
             (
                 "before",
+                "web/static/src/scss/primary_variables.scss",
+                "web_responsive/static/src/scss/primary_variables.scss",
+            ),
+            (
+                "before",
                 "web/static/src/**/*.variables.scss",
                 "web_responsive/static/src/**/*.variables.scss",
             ),
-            "/web_responsive/static/src/scss/primary_variable.scss",
+            "web_responsive/static/src/scss/variables.scss",
         },
         "web.assets_backend": [
             "/web_responsive/static/src/scss/*.scss",
@@ -41,6 +46,11 @@
             ("remove", "web_responsive/static/src/**/*.dark.scss"),
         ],
         "web.assets_web_dark": [
+            (
+                "before",
+                "web_responsive/static/src/scss/variables.scss",
+                "web_responsive/static/src/scss/variables.dark.scss",
+            ),
             "web_responsive/static/src/**/*.dark.scss",
         ],
         "web.assets_clickbot": [

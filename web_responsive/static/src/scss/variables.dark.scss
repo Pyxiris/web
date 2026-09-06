@@ -1,0 +1,3 @@
+$wr-app-menu-background:
+    url("../img/home-menu-bg-overlay.svg"),
+    linear-gradient(to bottom, $o-navbar-background, lighten($o-navbar-background, 5%)) !default;

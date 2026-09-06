@@ -5,14 +5,6 @@
 
 :root {
     .wr_apps_menu_container {
-        --app-menu-background:
-            url("../../img/home-menu-bg-overlay.svg"),
-            linear-gradient(
-                to bottom,
-                #{$app-menu-background-color},
-                #{desaturate(lighten($app-menu-background-color, 20%), 15)}
-            );
-        --app-menu-text-color: #{$app-menu-text-color};
         --app-menu-text-shadow: 1px 1px 1px #{rgba($white, 0.4)};
         --app-menu-hover-background: #{rgba(white, 0.4)};
     }
@@ -31,10 +23,20 @@
     left: 0 !important;
 }
 
-body:has(.wr_apps_menu_container) .o_main_navbar {
-    .o_menu_brand,
-    .o_menu_sections {
-        display: none !important;
+body:has(.wr_apps_menu_container) {
+    background-image: $wr-app-menu-background;
+
+    .o_action_manager {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    & .o_main_navbar {
+        background: transparent !important;
+        .o_menu_brand,
+        .o_menu_sections {
+            display: none !important;
+        }
     }
 }
 
@@ -56,7 +58,7 @@ body:has(.wr_apps_menu_container) .o_main_navbar {
     &:hover,
     &:focus {
         background: $o-navbar-entry-bg--hover;
-        color: $o-navbar-brand-color;
+        color: $o-navbar-entry-color--hover;
         text-decoration: none;
     }
 }
@@ -67,7 +69,6 @@ body:has(.wr_apps_menu_container) .o_main_navbar {
     background-clip: border-box;
     padding: 1rem 0.5rem;
     gap: 1rem;
-    background: var(--app-menu-background);
     background-size: cover;
     border-radius: 0;
     align-content: flex-start;
@@ -100,7 +101,7 @@ body:has(.wr_apps_menu_container) .o_main_navbar {
 
     .search-icon-button {
         padding: 1rem;
-        color: var(--app-menu-text-color);
+        color: $wr-app-menu-text-color;
     }
 }
 
@@ -130,7 +131,7 @@ body:has(.wr_apps_menu_container) .o_main_navbar {
         overflow: hidden;
         font-size: 1em;
         text-shadow: var(--app-menu-text-shadow);
-        color: var(--app-menu-text-color);
+        color: $wr-app-menu-text-color;
         text-align: center;
     }
 
@@ -150,13 +151,13 @@ body:has(.wr_apps_menu_container) .o_main_navbar {
         bottom: 2px;
         right: 2px;
         text-shadow: 0 0 2px rgba(250, 250, 250, 0.6);
-        color: $app-menu-text-color;
+        color: $wr-app-menu-text-color;
     }
 
     &:focus,
     &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 6px 12px -8px transparentize($app-menu-text-color, 0.6);
+        box-shadow: 0 6px 12px -8px transparentize($wr-app-menu-text-color, 0.6);
         background-color: var(--app-menu-hover-background) !important;
         backdrop-filter: blur(2px);
     }
