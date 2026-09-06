@@ -10,7 +10,7 @@
             <div t-if="!isScopedApp" class="o_navbar_apps_menu">
                 <a
                     href="/odoo"
-                    class="wr_apps_menu_toggle"
+                    class="wr_apps_menu_toggle dropdown-toggle o-dropdown"
                     title="Home Menu"
                     data-hotkey="h"
                     t-att-aria-expanded="state.isAllAppsMenuOpened ? 'true' : 'false'"
