@@ -26,11 +26,13 @@
                 "web/static/src/**/*.variables.scss",
                 "web_responsive/static/src/**/*.variables.scss",
             ),
-            "/web_responsive/static/src/scss/primary_variable.scss",
+            # These depend on web/static/src/webclient/navbar/navbar.variables.scss
+            # so we need to add them after the variables.scss files.
+            # Another option would be to add them to the web._assets_secondary_variables
+            # bundle but I feel they still belong in the primary bundle.
+            "web_responsive/static/src/**/*.post_variables.scss",
         },
         "web.assets_backend": [
-            "/web_responsive/static/src/scss/*.scss",
-            "/web_responsive/static/src/js/*.js",
             "web_responsive/static/src/core/**/*",
             "web_responsive/static/src/search/**/*",
             "web_responsive/static/src/views/**/*",
@@ -41,7 +43,11 @@
             ("remove", "web_responsive/static/src/**/*.dark.scss"),
         ],
         "web.assets_web_dark": [
-            "web_responsive/static/src/**/*.dark.scss",
+            (
+                "before",
+                "web_responsive/static/src/**/*.post_variables.scss",
+                "web_responsive/static/src/**/*.post_variables.dark.scss",
+            ),
         ],
         "web.assets_clickbot": [
             "/web_responsive/static/src/clickbot/clickbot.esm.js",
