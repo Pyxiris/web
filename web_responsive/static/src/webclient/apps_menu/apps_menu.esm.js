@@ -23,8 +23,12 @@ patch(NavBar.prototype, {
             hotkeys: {
                 /** _closeAppMenuSidebar also sets isAllAppsMenuOpened to false */
                 escape: () => this._closeAppMenuSidebar(),
-                arrowleft: (navigator) => navigator.previous(),
-                arrowright: (navigator) => navigator.next(),
+                // UseNavigation is 1D; override arrows for the app grid.
+                arrowleft: (navigator) => this._navigateAppsMenuGrid(navigator, "left"),
+                arrowright: (navigator) =>
+                    this._navigateAppsMenuGrid(navigator, "right"),
+                arrowup: (navigator) => this._navigateAppsMenuGrid(navigator, "up"),
+                arrowdown: (navigator) => this._navigateAppsMenuGrid(navigator, "down"),
             },
         });
         useBus(this.env.bus, "ACTION_MANAGER:UI-UPDATED", () => {
@@ -90,5 +94,32 @@ patch(NavBar.prototype, {
         ev.preventDefault();
         ev.stopPropagation();
         this._openAppsMenuCommandPalette(ev.key === "/" ? "/" : `/${ev.key}`);
+    },
+
+    /**
+     * 2D grid navigation for app tiles.
+     * @param {import("@web/core/navigation/navigation").Navigator} navigator
+     * @param {"left"|"right"|"up"|"down"} direction
+     */
+    _navigateAppsMenuGrid(navigator, direction) {
+        const {items, activeItemIndex: i} = navigator;
+        if (items.length < 2) {
+            return;
+        }
+        const apps = items.slice(1);
+        let cols = 1;
+        while (cols < apps.length && apps[cols].el.offsetTop === apps[0].el.offsetTop) {
+            cols++;
+        }
+        if (i === 0 && direction !== "up") {
+            apps[0].setActive();
+            return;
+        }
+        const delta = {left: -1, right: 1, up: -cols, down: cols}[direction];
+        const raw = i + delta;
+        const next = Math.min(apps.length, Math.max(0, raw));
+        if (next !== i) {
+            items[next].setActive();
+        }
     },
 });
