@@ -1,5 +1,3 @@
-/* global document, window, requestAnimationFrame */
-
 /* Copyright 2021 ITerra - Sergey Shebanin
  * Copyright 2023 Onestein - Anjeel Haria
  * Copyright 2023 Taras Shabaranskyi
