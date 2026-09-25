@@ -33,6 +33,13 @@
         }
     }
 
+    &__popout .o-FileViewer-main {
+        padding: 0;
+        .o-FileViewer-viewPdf {
+            width: 100% !important;
+        }
+    }
+
     .o-FileViewer-navigation {
         background-color: rgba(255, 255, 255, 0.2);
         text-shadow: 0 0 rgba(30, 30, 30, 0.8);
