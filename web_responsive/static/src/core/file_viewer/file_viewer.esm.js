@@ -10,19 +10,8 @@ import {patch} from "@web/core/utils/patch";
 import {useService} from "@web/core/utils/hooks";
 
 const formChatterAsideSelector = ".o-mail-Form-chatter.o-aside";
-const POPOUT_MANAGER_ID = "web_responsive.file_viewer";
 
 FileViewer.props.push("isPopout?");
-
-/** One manager for the file-viewer popout (createManager resets state if called again). */
-let fileViewerPopoutManager = null;
-
-function getFileViewerPopoutManager(mailPopoutService) {
-    if (!fileViewerPopoutManager) {
-        fileViewerPopoutManager = mailPopoutService.createManager(POPOUT_MANAGER_ID);
-    }
-    return fileViewerPopoutManager;
-}
 
 /** Set minimized height from the aside chatter; width comes from FormChatter. */
 function useFileViewerAsideHeight(ref) {
@@ -77,11 +66,14 @@ patch(FileViewer.prototype, {
     },
 
     /**
-     * Open this viewer in a popup (same files + next/prev) and close the main one.
+     * Open this viewer in the default mail.popout window (same slot as the
+     * chatter "Pop out Attachments" button) so mailLayout sees
+     * EXTERNAL_COMBO / EXTERNAL_COMBO_XXL, then close the in-page viewer.
      */
     popout() {
-        const manager = getFileViewerPopoutManager(this.mailPopoutService);
-        manager.popout(FileViewer, {
+        const triggerLayout = () => this.ui.bus.trigger("resize");
+        this.mailPopoutService.addHooks(triggerLayout, triggerLayout);
+        this.mailPopoutService.popout(FileViewer, {
             files: this.props.files,
             startIndex: this.state.index,
             modal: true,
