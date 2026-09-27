@@ -7,12 +7,16 @@ import {useEffect} from "@odoo/owl";
 import {useFileViewer} from "@web/core/file_viewer/file_viewer_hook";
 import {useService} from "@web/core/utils/hooks";
 
+/**
+ * Auto-open minimized FileViewer when the form opts into attachment preview
+ * (same gate as the chatter restore button). Popout stays on core restore;
+ * PopoutAttachmentView template renders FileViewer.
+ */
 patch(Chatter.prototype, {
     setup() {
         super.setup(...arguments);
         this.fileViewer = useFileViewer();
         this.mailPopoutService = useService("mail.popout");
-
         useEffect(
             this.attachmentPreviewEffect.bind(this),
             this.attachmentPreviewDependencies.bind(this)
@@ -21,9 +25,6 @@ patch(Chatter.prototype, {
 
     attachmentPreviewEffect() {
         const files = this.state.thread?.attachmentsInWebClientView;
-
-        // While an external popout is open, layout is EXTERNAL_COMBO*;
-        // do not also show the in-page minimized FileViewer.
         if (
             this.mailPopoutService.externalWindow ||
             !(
@@ -35,21 +36,21 @@ patch(Chatter.prototype, {
             this.fileViewer.close();
             return;
         }
-
         const main = files.includes(this.state.thread.message_main_attachment_id)
             ? this.state.thread.message_main_attachment_id
             : files[0];
         this.fileViewer.open(main, files);
     },
 
-    /**
-     * @returns {Array}
-     */
     attachmentPreviewDependencies() {
+        const files = this.state.thread?.attachmentsInWebClientView;
         return [
             this.props.isChatterAside,
-            this.state.thread?.localId,
-            Boolean(this.state.thread?.attachmentsInWebClientView.length),
+            this.props.threadId,
+            this.props.threadModel,
+            this.state.thread?.message_main_attachment_id?.id,
+            // Id list so async attachment fetch after pager also re-opens.
+            files?.map((attachment) => attachment.id).join(",") ?? "",
             Boolean(this.mailPopoutService.externalWindow),
         ];
     },

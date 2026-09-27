@@ -54,4 +54,20 @@
             <attribute name="class" add="o-FileViewer-viewPdf" separator=" " />
         </xpath>
     </t>
+
+    <t
+        t-name="web_responsive.PopoutAttachmentView"
+        t-inherit="mail.PopoutAttachmentView"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//t[@t-call='mail.AttachmentView']" position="replace">
+            <FileViewer
+                t-if="files.length"
+                files="files"
+                startIndex="startIndex"
+                modal="true"
+                isPopout="true"
+            />
+        </xpath>
+    </t>
 </template>
