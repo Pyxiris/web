@@ -22,20 +22,42 @@
         }
     }
 
-    &__minimized {
+    &__minimized,
+    &__popout {
         .o-FileViewer-view:not(.o-FileViewer-viewImage) {
             width: 100% !important;
             height: 100% !important;
         }
     }
 
+    &__popout {
+        .o-FileViewer {
+            z-index: 0;
+        }
+        .o-FileViewer-main {
+            padding: 0;
+        }
+    }
+
     .o-FileViewer-navigation {
-        transition: box-shadow 0.2s;
+        opacity: 0;
+        transition:
+            opacity 1s,
+            box-shadow 0.2s;
 
         &:hover {
             box-shadow: 0 0 0px 4px var(--background-color);
         }
     }
+
+    &:hover .o-FileViewer-navigation {
+        opacity: 1;
+    }
+}
+
+/* We need this to render, but not display. */
+.o_attachment_preview {
+    display: none !important;
 }
 
 body:has(.wr_apps_menu_container) .o-FileViewerContainer {
