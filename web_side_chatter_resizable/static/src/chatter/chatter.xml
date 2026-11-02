@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Liam Noonan
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<templates xml:space="preserve">
+    <t t-name="web_side_chatter_resizable.Chatter">
+        <t t-if="props.isChatterAside">
+            <ResizablePanel
+                handleSide="'start'"
+                class="'h-100 flex-shrink-0'"
+                minWidth="chatterMinWidth"
+                initialWidth="chatterWidth"
+                onResize.bind="onChatterResize"
+            >
+                <t t-call="mail.Chatter" />
+            </ResizablePanel>
+        </t>
+        <t t-else="">
+            <t t-call="mail.Chatter" />
+        </t>
+    </t>
+</templates>

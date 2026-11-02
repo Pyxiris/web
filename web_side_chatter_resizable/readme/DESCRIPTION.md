@@ -1,0 +1,1 @@
+web_side_chatter_resizable

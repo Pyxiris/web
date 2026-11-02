@@ -1,0 +1,27 @@
+// Copyright 2026 Liam Noonan
+// License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+
+:root {
+    --SideChatter-minWidth: #{$o-mail-Chatter-minWidth};
+}
+
+// The form compiler's wrapper keeps core's fixed width and flex-grow.
+// The panel is the width, so the wrapper follows it.
+.o-mail-ChatterContainer.o-aside:has(> .o_resizable_panel) {
+    flex: 0 0 auto !important;
+    width: max-content !important;
+    max-width: 100%;
+    min-width: 0;
+
+    > .o_resizable_panel {
+        min-width: 0;
+        overflow: hidden;
+    }
+}
+
+// The XXL sheet basis (990px) jumps once the chatter width becomes fixed.
+.o_form_view:has(.o-mail-ChatterContainer.o-aside > .o_resizable_panel) {
+    .o_form_sheet_bg {
+        flex-basis: auto;
+    }
+}
